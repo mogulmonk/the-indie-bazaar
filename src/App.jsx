@@ -838,12 +838,12 @@ export default function App() {
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] bg-[length:20px_20px]"></div>
             <div className="relative z-10 max-w-3xl">
               <div className="inline-block bg-white border-2 border-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                The New Nostalgia
+                The New Indian Aesthetic
               </div>
               <h2 className="text-5xl md:text-7xl font-black text-black leading-[0.9] mb-6">
                 DITCH THE <br/>
-                <span className="text-white text-stroke-black">GENERIC.</span><br/>
-                GIFT THE <span className="italic text-pink-600">DARING.</span>
+                <span className="text-white text-stroke-black">NOISE.</span><br/>
+                MEET INDIA'S INDIE <span className="italic text-pink-600">CANONS.</span>
               </h2>
               <p className="text-xl font-bold text-gray-800 mb-8 max-w-xl">
                 A curated collection of India's most interesting consumer startups. 
