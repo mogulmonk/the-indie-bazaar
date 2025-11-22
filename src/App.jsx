@@ -482,7 +482,7 @@ export default function App() {
                 Building something that breaks the mold? We want to see it. 
                 Join the collective and get discovered by people who care.
               </p>
-              <a href="https://tally.so/r/YOUR_LINK_HERE" target="_blank" rel="noreferrer" className="bg-white text-black font-black px-8 py-4 rounded-xl border-2 border-black hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex items-center gap-2 mx-auto">
+              <a href="https://tally.so/r/rjj9kL" target="_blank" rel="noreferrer" className="bg-white text-black font-black px-8 py-4 rounded-xl border-2 border-black hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex items-center gap-2 mx-auto">
                 Submit Your Brand <ArrowRight size={20} />
               </a>
             </div>
@@ -522,7 +522,7 @@ export default function App() {
             >
               Gift Guide
             </button>
-            <a href="https://tally.so/r/YOUR_LINK_HERE" target="_blank" rel="noreferrer" className="bg-black text-white font-bold px-6 py-2 rounded-full hover:scale-105 transition-transform border-2 border-transparent">
+            <a href="https://tally.so/r/rjj9kL" target="_blank" rel="noreferrer" className="bg-black text-white font-bold px-6 py-2 rounded-full hover:scale-105 transition-transform border-2 border-transparent">
               Submit Brand
             </a>
           </div>
