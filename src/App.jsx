@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import Fuse from 'fuse.js';
 import { Search, ExternalLink, Gift, ShoppingBag, Sparkles, Heart, Coffee, Shirt, Gamepad2, Home, Zap, ArrowRight, ArrowLeft, Smile, Star } from 'lucide-react';
 
 // --- 1. DATASET ---
@@ -233,6 +234,17 @@ const CATEGORIES = [
   { id: 'Self', label: 'Self Love', icon: Heart },
 ];
 
+// --- CONFIGURING THE SEARCH ENGINE ---
+const fuseOptions = {
+  keys: [
+    { name: 'name', weight: 0.5 },
+    { name: 'tags', weight: 0.3 },
+    { name: 'description', weight: 0.2 },
+    { name: 'category', weight: 0.1 }
+  ],
+  threshold: 0.3, 
+};
+
 // --- 2. SUB-COMPONENTS ---
 
 const BrandCard = ({ brand }) => (
@@ -377,15 +389,24 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredBrands = useMemo(() => {
-    return STARTUPS.filter(brand => {
-      const matchesCategory = activeCategory === 'All' || brand.category === activeCategory;
-      const matchesSearch = 
-        brand.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        brand.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchQuery]);
+ // Initialize Fuse Search Engine
+ const fuse = useMemo(() => new Fuse(STARTUPS, fuseOptions), []);
+
+ const filteredBrands = useMemo(() => {
+   let results = STARTUPS;
+
+   // 1. Fuzzy Search (Only if typing)
+   if (searchQuery.length > 0) {
+     results = fuse.search(searchQuery).map(result => result.item);
+   }
+
+   // 2. Category Filter (Applied AFTER search)
+   if (activeCategory !== 'All') {
+     results = results.filter(brand => brand.category === activeCategory);
+   }
+
+   return results;
+ }, [activeCategory, searchQuery, fuse]);
 
   // Function to render the main content based on view state
   const renderContent = () => {
