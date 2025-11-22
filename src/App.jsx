@@ -833,7 +833,7 @@ export default function App() {
     return (
       <>
         {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-4 pt-16 pb-12">
+        <div className="max-w-7xl mx-auto px-4 pt-6 pb-12">
           <div className="bg-yellow-400 rounded-3xl border-2 border-black p-8 md:p-16 relative overflow-hidden shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] bg-[length:20px_20px]"></div>
             <div className="relative z-10 max-w-3xl">
