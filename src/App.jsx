@@ -658,7 +658,7 @@ const fuseOptions = {
     { name: 'description', weight: 0.2 },
     { name: 'category', weight: 0.1 }
   ],
-  threshold: 0.4, // <--- CHANGED: 0.4 allows for more "fuzzy" typos
+  threshold: 0.3, 
 };
 
 // --- 2. SUB-COMPONENTS ---
@@ -681,7 +681,8 @@ const BrandCard = ({ brand }) => (
         <span className="text-sm font-bold text-gray-500 font-mono">{brand.price}</span>
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
-        {brand.tags.map(tag => (
+        {/* Showing only top 3 tags to keep UI clean */}
+        {brand.tags.slice(0, 3).map(tag => (
           <span key={tag} className="text-[10px] font-bold uppercase px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
             #{tag}
           </span>
