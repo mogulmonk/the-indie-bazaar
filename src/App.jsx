@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ExternalLink, Gift, ShoppingBag, Sparkles, Heart, Coffee, Shirt, Gamepad2, Home, Zap, ArrowRight } from 'lucide-react';
+import { Search, ExternalLink, Gift, ShoppingBag, Sparkles, Heart, Coffee, Shirt, Gamepad2, Home, Zap, ArrowRight, ArrowLeft, Smile, Star } from 'lucide-react';
 
-// --- 1. DATASET: Curated for Gifting & Buying ---
+// --- 1. DATASET ---
 const STARTUPS = [
   // --- PANTRY ---
   {
@@ -233,11 +233,10 @@ const CATEGORIES = [
   { id: 'Self', label: 'Self Love', icon: Heart },
 ];
 
-// --- 2. COMPONENTS ---
+// --- 2. SUB-COMPONENTS ---
 
 const BrandCard = ({ brand }) => (
   <div className="group relative flex flex-col bg-white border-2 border-black rounded-2xl overflow-hidden hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 hover:-translate-y-1">
-    {/* Card Header / Image Area */}
     <div className={`h-32 ${brand.color} border-b-2 border-black p-4 flex items-start justify-between relative overflow-hidden`}>
       <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/20 rounded-full blur-xl"></div>
       <div className="z-10 bg-white border-2 border-black px-2 py-1 text-xs font-bold uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
@@ -248,14 +247,11 @@ const BrandCard = ({ brand }) => (
       </button>
     </div>
 
-    {/* Content */}
     <div className="p-5 flex flex-col flex-grow">
       <div className="flex justify-between items-baseline mb-2">
         <h3 className="text-xl font-black text-black leading-tight">{brand.name}</h3>
         <span className="text-sm font-bold text-gray-500 font-mono">{brand.price}</span>
       </div>
-      
-      {/* Tags */}
       <div className="flex gap-2 mb-3 flex-wrap">
         {brand.tags.map(tag => (
           <span key={tag} className="text-[10px] font-bold uppercase px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
@@ -263,19 +259,11 @@ const BrandCard = ({ brand }) => (
           </span>
         ))}
       </div>
-
       <p className="text-gray-700 text-sm font-medium leading-relaxed mb-6 flex-grow">
         {brand.description}
       </p>
-
-      {/* Actions */}
       <div className="grid grid-cols-[1fr_auto] gap-3 mt-auto">
-        <a 
-          href={brand.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 bg-black text-white font-bold py-3 px-4 rounded-xl hover:bg-gray-800 transition-colors border-2 border-black"
-        >
+        <a href={brand.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-black text-white font-bold py-3 px-4 rounded-xl hover:bg-gray-800 transition-colors border-2 border-black">
           <ShoppingBag size={16} /> Shop Now
         </a>
         <button className="flex items-center justify-center p-3 bg-yellow-400 border-2 border-black rounded-xl hover:bg-yellow-300 transition-colors text-black" title="Gift This">
@@ -286,9 +274,106 @@ const BrandCard = ({ brand }) => (
   </div>
 );
 
+// --- NEW: Story View ---
+const StoryView = ({ onBack }) => (
+  <div className="max-w-3xl mx-auto px-4 pt-10 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <button onClick={onBack} className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black mb-8">
+      <ArrowLeft size={16} /> Back to Bazaar
+    </button>
+    
+    <div className="bg-white border-2 border-black rounded-3xl p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-pink-100 rounded-full blur-3xl -mr-32 -mt-32 opacity-50"></div>
+      
+      <h2 className="text-4xl md:text-6xl font-black mb-8 relative z-10">
+        WE WERE TIRED OF <br/>
+        <span className="text-pink-500">BORING GIFTS.</span>
+      </h2>
+      
+      <div className="space-y-6 text-lg font-medium text-gray-800 relative z-10 leading-relaxed">
+        <p>
+          You know the drill. The generic voucher. The mass-produced mug. The shirt that shrinks after one wash.
+        </p>
+        <p>
+          India is teeming with makers who pour their soul into what they build. We wanted to give them a stage that wasn't buried under a thousand sponsored ads or generic dropshipping stores.
+        </p>
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-8">
+          <p className="text-sm font-bold uppercase text-yellow-600 mb-2 tracking-widest">Our Mission</p>
+          <p className="text-xl font-black italic">
+            "To make gifting daring again."
+          </p>
+        </div>
+        <p>
+          Indie Bazaar is a collection of the weird, the wonderful, and the exceptionally well-made. Every brand here is Indian-owned, design-led, and worth your time.
+        </p>
+      </div>
+      
+      <div className="mt-12 pt-8 border-t-2 border-gray-100 flex items-center gap-4">
+        <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-xl">👋</div>
+        <div>
+          <p className="font-bold text-black">Curated by Yash</p>
+          <p className="text-sm text-gray-500">Building in public.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// --- NEW: Gift Guide View ---
+const GiftGuideView = ({ onBack }) => {
+  const personas = [
+    { title: "The Coffee Snob", desc: "Thinks Starbucks is 'burnt water'. Needs beans with a backstory.", color: "bg-emerald-100", icon: Coffee },
+    { title: "The Aesthetic Chaser", desc: "If it's not on Instagram, did it even happen?", color: "bg-pink-100", icon: Sparkles },
+    { title: "The Homebody", desc: "Cancels plans to stay in. Needs incense, clay, and comfort.", color: "bg-orange-100", icon: Home },
+    { title: "The Cool Kid", desc: "Wears brands you've never heard of. Yet.", color: "bg-yellow-100", icon: Zap },
+  ];
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 pt-10 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <button onClick={onBack} className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black mb-8">
+        <ArrowLeft size={16} /> Back to Bazaar
+      </button>
+
+      <div className="text-center mb-16">
+        <div className="inline-block bg-black text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4">The Cheat Sheet</div>
+        <h2 className="text-4xl md:text-6xl font-black text-black mb-6">WHO ARE YOU <br/><span className="text-purple-500 italic">SHOPPING FOR?</span></h2>
+        <p className="text-xl font-medium text-gray-600 max-w-2xl mx-auto">
+          Don't panic. We've categorized the best of Indie India by personality type.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {personas.map((p, i) => (
+          <div key={i} className={`p-8 rounded-3xl border-2 border-black ${p.color} hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 hover:-translate-y-1 cursor-pointer`}>
+            <div className="flex items-start justify-between mb-4">
+              <div className="p-3 bg-white border-2 border-black rounded-xl">
+                <p.icon size={24} />
+              </div>
+              <ArrowRight size={24} className="opacity-20" />
+            </div>
+            <h3 className="text-2xl font-black mb-2">{p.title}</h3>
+            <p className="font-medium opacity-75">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-16 text-center bg-white border-2 border-black rounded-3xl p-12 relative overflow-hidden">
+         <div className="relative z-10">
+            <h3 className="text-2xl font-black mb-4">Still stuck?</h3>
+            <p className="text-lg text-gray-600 mb-8">Get the "Mystery Box" and let fate decide.</p>
+            <button className="bg-black text-white font-bold px-8 py-3 rounded-xl hover:bg-gray-800 transition-colors">
+              Coming Soon
+            </button>
+         </div>
+         <div className="absolute -right-10 -bottom-10 text-9xl opacity-10 rotate-12">🎁</div>
+      </div>
+    </div>
+  );
+};
+
 // --- 3. MAIN APP COMPONENT ---
 
 export default function App() {
+  const [currentView, setCurrentView] = useState('home'); // 'home', 'story', 'guide'
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -298,17 +383,124 @@ export default function App() {
       const matchesSearch = 
         brand.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         brand.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
+
+  // Function to render the main content based on view state
+  const renderContent = () => {
+    if (currentView === 'story') return <StoryView onBack={() => setCurrentView('home')} />;
+    if (currentView === 'guide') return <GiftGuideView onBack={() => setCurrentView('home')} />;
+
+    return (
+      <>
+        {/* Hero Section */}
+        <div className="max-w-7xl mx-auto px-4 pt-16 pb-12">
+          <div className="bg-yellow-400 rounded-3xl border-2 border-black p-8 md:p-16 relative overflow-hidden shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] bg-[length:20px_20px]"></div>
+            <div className="relative z-10 max-w-3xl">
+              <div className="inline-block bg-white border-2 border-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                The New Nostalgia
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-black leading-[0.9] mb-6">
+                DITCH THE <br/>
+                <span className="text-white text-stroke-black">GENERIC.</span><br/>
+                GIFT THE <span className="italic text-pink-600">DARING.</span>
+              </h2>
+              <p className="text-xl font-bold text-gray-800 mb-8 max-w-xl">
+                A curated collection of India's most interesting consumer startups. 
+                From artisanal chocolates to streetwear that tells a story.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-lg">
+                <div className="relative flex-grow">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <Search className="text-gray-400" size={20} />
+                  </div>
+                  <input 
+                    type="text" 
+                    placeholder="Find coffee, sneakers, or games..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full h-14 pl-12 pr-4 bg-white border-2 border-black rounded-xl text-lg font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all placeholder:font-medium placeholder:text-gray-400"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-pink-500 rounded-full border-2 border-black hidden md:block"></div>
+            <div className="absolute top-12 right-12 text-9xl opacity-20 rotate-12 hidden lg:block">🎁</div>
+          </div>
+        </div>
+
+        {/* Categories */}
+        <div className="max-w-7xl mx-auto px-4 mb-12 overflow-x-auto">
+          <div className="flex gap-4 pb-4 min-w-max">
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`
+                    flex items-center gap-2 px-6 py-3 rounded-xl font-bold border-2 border-black transition-all duration-200
+                    ${isActive 
+                      ? 'bg-black text-white shadow-[4px_4px_0px_0px_#ec4899] -translate-y-1' 
+                      : 'bg-white text-black hover:bg-gray-50 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1'}
+                  `}
+                >
+                  <Icon size={18} />
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {filteredBrands.map((brand) => (
+              <BrandCard key={brand.id} brand={brand} />
+            ))}
+          </div>
+
+          {filteredBrands.length === 0 && (
+            <div className="text-center py-20 bg-white border-2 border-black rounded-3xl border-dashed">
+              <div className="text-6xl mb-4">🧐</div>
+              <h3 className="text-2xl font-black mb-2">No treasures found</h3>
+              <p className="text-gray-500 font-medium">Try searching for "coffee" or "games" instead.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Footer CTA */}
+        <div className="max-w-7xl mx-auto px-4 mt-20">
+          <div className="bg-pink-500 border-2 border-black rounded-3xl p-10 text-center text-white relative overflow-hidden">
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-black mb-4">Are you a Maker?</h2>
+              <p className="text-lg font-medium mb-8 max-w-2xl mx-auto opacity-90">
+                Building something that breaks the mold? We want to see it. 
+                Join the collective and get discovered by people who care.
+              </p>
+              <button className="bg-white text-black font-black px-8 py-4 rounded-xl border-2 border-black hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex items-center gap-2 mx-auto">
+                Submit Your Brand <ArrowRight size={20} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-[#FFF8F0] font-sans text-gray-900 pb-20">
       {/* Retro Navbar */}
       <nav className="sticky top-0 z-50 bg-[#FFF8F0]/90 backdrop-blur-sm border-b-2 border-black">
         <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div 
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => setCurrentView('home')}
+          >
             <div className="w-10 h-10 bg-pink-500 border-2 border-black rounded-lg flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               <Zap className="text-white fill-white" size={20} />
             </div>
@@ -318,8 +510,18 @@ export default function App() {
           </div>
           
           <div className="hidden md:flex items-center gap-4">
-            <a href="#" className="font-bold hover:underline decoration-2 underline-offset-4">Our Story</a>
-            <a href="#" className="font-bold hover:underline decoration-2 underline-offset-4">Gift Guide</a>
+            <button 
+              onClick={() => setCurrentView('story')}
+              className={`font-bold hover:underline decoration-2 underline-offset-4 ${currentView === 'story' ? 'text-pink-600' : ''}`}
+            >
+              Our Story
+            </button>
+            <button 
+              onClick={() => setCurrentView('guide')}
+              className={`font-bold hover:underline decoration-2 underline-offset-4 ${currentView === 'guide' ? 'text-pink-600' : ''}`}
+            >
+              Gift Guide
+            </button>
             <button className="bg-black text-white font-bold px-6 py-2 rounded-full hover:scale-105 transition-transform border-2 border-transparent">
               Submit Brand
             </button>
@@ -327,109 +529,14 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 pt-16 pb-12">
-        <div className="bg-yellow-400 rounded-3xl border-2 border-black p-8 md:p-16 relative overflow-hidden shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
-          {/* Decorative Pattern */}
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] bg-[length:20px_20px]"></div>
-          
-          <div className="relative z-10 max-w-3xl">
-            <div className="inline-block bg-white border-2 border-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              The New Nostalgia
-            </div>
-            <h2 className="text-5xl md:text-7xl font-black text-black leading-[0.9] mb-6">
-              DITCH THE <br/>
-              <span className="text-white text-stroke-black">GENERIC.</span><br/>
-              GIFT THE <span className="italic text-pink-600">DARING.</span>
-            </h2>
-            <p className="text-xl font-bold text-gray-800 mb-8 max-w-xl">
-              A curated collection of India's most interesting consumer startups. 
-              From artisanal chocolates to streetwear that tells a story.
-            </p>
-            
-            {/* Search Bar Integrated in Hero */}
-            <div className="flex flex-col sm:flex-row gap-4 max-w-lg">
-              <div className="relative flex-grow">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <Search className="text-gray-400" size={20} />
-                </div>
-                <input 
-                  type="text" 
-                  placeholder="Find coffee, sneakers, or games..." 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-14 pl-12 pr-4 bg-white border-2 border-black rounded-xl text-lg font-bold focus:outline-none focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all placeholder:font-medium placeholder:text-gray-400"
-                />
-              </div>
-            </div>
-          </div>
-          
-          {/* Abstract decoration */}
-          <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-pink-500 rounded-full border-2 border-black hidden md:block"></div>
-          <div className="absolute top-12 right-12 text-9xl opacity-20 rotate-12 hidden lg:block">🎁</div>
-        </div>
-      </div>
+      {/* Render Dynamic Content */}
+      {renderContent()}
 
-      {/* Categories */}
-      <div className="max-w-7xl mx-auto px-4 mb-12 overflow-x-auto">
-        <div className="flex gap-4 pb-4 min-w-max">
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            const isActive = activeCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`
-                  flex items-center gap-2 px-6 py-3 rounded-xl font-bold border-2 border-black transition-all duration-200
-                  ${isActive 
-                    ? 'bg-black text-white shadow-[4px_4px_0px_0px_#ec4899] -translate-y-1' 
-                    : 'bg-white text-black hover:bg-gray-50 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1'}
-                `}
-              >
-                <Icon size={18} />
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Grid */}
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {filteredBrands.map((brand) => (
-            <BrandCard key={brand.id} brand={brand} />
-          ))}
-        </div>
-
-        {filteredBrands.length === 0 && (
-          <div className="text-center py-20 bg-white border-2 border-black rounded-3xl border-dashed">
-            <div className="text-6xl mb-4">🧐</div>
-            <h3 className="text-2xl font-black mb-2">No treasures found</h3>
-            <p className="text-gray-500 font-medium">Try searching for "coffee" or "games" instead.</p>
-          </div>
-        )}
-      </div>
-
-      {/* Footer CTA */}
-      <div className="max-w-7xl mx-auto px-4 mt-20">
-        <div className="bg-pink-500 border-2 border-black rounded-3xl p-10 text-center text-white relative overflow-hidden">
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-black mb-4">Are you a Maker?</h2>
-            <p className="text-lg font-medium mb-8 max-w-2xl mx-auto opacity-90">
-              Building something that breaks the mold? We want to see it. 
-              Join the collective and get discovered by people who care.
-            </p>
-            <button className="bg-white text-black font-black px-8 py-4 rounded-xl border-2 border-black hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex items-center gap-2 mx-auto">
-              Submit Your Brand <ArrowRight size={20} />
-            </button>
-          </div>
-        </div>
+      {currentView === 'home' && (
         <div className="text-center mt-12 text-sm font-bold text-gray-400 uppercase tracking-widest">
           © 2024 Indie Bazaar • Made for the daring
         </div>
-      </div>
+      )}
     </div>
   );
 }
