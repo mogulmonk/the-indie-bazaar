@@ -51,13 +51,11 @@ export default function App() {
                     The New Indian Aesthetic
                   </div>
                   <h2 className="text-5xl md:text-7xl font-black text-black leading-[0.9] mb-6">
-                    DITCH THE <br/>
-                    <span className="text-white text-stroke-black">NOISE.</span><br/>
-                    GIFT INDIE <span className="italic text-pink-600">CANONS.</span>
+                    GIFTS THAT PROVE <br/>
+                    YOU PAID <span className="italic text-pink-600">ATTENTION.</span>
                   </h2>
                   <p className="text-xl font-bold text-gray-800 mb-8 max-w-xl">
-                    A curated collection of India's most interesting consumer startups.
-                    From artisanal chocolates to streetwear that tells a story.
+                    A hand-picked collection of India's most interesting independent brands. Curated by Yash.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 max-w-lg">
                     <div className="relative flex-grow">
